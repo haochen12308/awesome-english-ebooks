@@ -1,0 +1,25 @@
+name: Sync from Upstream
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # 每天凌晨 2 点同步一次
+  workflow_dispatch:     # 允许手动触发
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout target repo
+        uses: actions/checkout@v3
+
+      - name: Set Git config
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+      - name: Add upstream and sync
+        run: |
+          git remote add upstream https://github.com/hehonghui/awesome-english-ebooks.git
+          git fetch upstream
+          git merge upstream/main --allow-unrelated-histories --no-edit || true
+          git push origin main
