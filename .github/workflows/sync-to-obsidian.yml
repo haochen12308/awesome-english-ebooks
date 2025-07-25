@@ -16,7 +16,7 @@ jobs:
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          git clone https://x-access-token:${{ secrets.OBSIDIAN_TOKEN }}@github.com/haochen12308/my-obsidian-vault.git target-vault
+          git clone https://x-access-token:${{ secrets.OBSIDIAN_TOKEN }}@github.com/haochen12308/awesome-english-ebooks target-vault
           rsync -av --exclude='.git' ./ target-vault/
           cd target-vault
           git add .
